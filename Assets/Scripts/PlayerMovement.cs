@@ -22,8 +22,7 @@ public class PlayerMovement : MonoBehaviour
         Camera.main.enabled = false;
         rb = GetComponent<Rigidbody>();
     }
-
-    void FixedUpdate()
+    private void Update()
     {
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float verticalMove = Input.GetAxisRaw("Vertical");
@@ -39,6 +38,18 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce);
         }
+    }
+    void FixedUpdate()
+    {
+        float horizontalMove = Input.GetAxisRaw("Horizontal");
+        float verticalMove = Input.GetAxisRaw("Vertical");
+
+        bool sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool jump = Input.GetKey(KeyCode.Space);
+
+        bool isGrounded = Physics.Raycast(groundDetector.position, Vector3.down, 0.1f, ground);
+        bool isJumping = jump && isGrounded;
+        bool isSprinting = sprint && verticalMove > 0 && !isJumping && isGrounded;
 
         Vector3 direction = new Vector3(horizontalMove, 0, verticalMove);
         direction.Normalize();

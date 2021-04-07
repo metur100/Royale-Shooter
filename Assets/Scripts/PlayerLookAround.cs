@@ -7,7 +7,7 @@ public class PlayerLookAround : MonoBehaviour
     public Transform player;
     public Transform normalCam;
     //public Transform weaponCam;
-    //public Transform weapon;
+    public Transform weapon;
 
     public float xSensitivity;
     public float ySensitivity;
@@ -42,8 +42,7 @@ public class PlayerLookAround : MonoBehaviour
         {
             normalCam.localRotation = t_delta;
         }
-
-        //weapon.rotation = normalCam.rotation;
+        weapon.rotation = normalCam.rotation;
     }
 
     void SetX()
